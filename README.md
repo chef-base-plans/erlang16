@@ -2,7 +2,7 @@
 
 # erlang16
 
-TODO: SUMMARIZE THE TOOL.  See [documentation](TODO ADD URL HERE)
+Erlang is a programming language used to build massively scalable soft real-time systems with requirements on high availability. Some of its uses are in telecoms, banking, e-commerce, computer telephony and instant messaging. See [documentation](https://www.erlang.org/docs)
 
 ## Maintainers
 
@@ -36,9 +36,15 @@ To install this plan, you should run the following commands to first install, an
 
 will add the following binaries to the PATH:
 
-* TODO - Copy the binlink output and then run ``bins``
-* TODO - Add binary
-* TODO - Add binary
+* /bin/ct_run
+* /bin/dialyzer
+* /bin/epmd
+* /bin/erl
+* /bin/erlc
+* /bin/escript
+* /bin/run_erl
+* /bin/to_erl
+* /bin/typer
 
 For example:
 
@@ -69,19 +75,21 @@ $ hab pkg install core/erlang16 --binlink
 ★ Binlinked erlc from core/erlang16/R16B03-1/20200903170037 to /bin/erlc
 ```
 
-##### Additional Steps
-
-TODO: ADD OR DELETE THIS SECTION AS NEEDED 
-
-To use core/erlang16 as a stand alone binary, you must configure ...
-
 #### Using an example binary
 
-You can now use the binary as normal.  For example:
+You can now use the binary as normal.  For example, save the following erlang script and call it ``hello``:
 
-``/bin/erl --help`` or ``erl --help``
+```erlang
+#!/usr/bin/env escript
+-export([main/1]).
+main([]) -> io:format("Hello, World!~n").
+```
+
+Then do the following:
+
+``/bin/escript hello`` or ``escript hello``
 
 ```bash
-$ erl --help
-TODO:  ADD SOME OUTPUT HERE, BUT NO MORE THAN 10-15 lines...
+$ escript hello
+Hello, World!
 ```
