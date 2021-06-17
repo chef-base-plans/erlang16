@@ -27,6 +27,16 @@ do_prepare() {
     _clean_rm=true
   fi
 
+  # This fixes:
+  #
+  # checking for tgetent in -lncurses... no
+  # checking for tgetent in -lcurses... no
+  # checking for tgetent in -ltermcap... no
+  # checking for tgetent in -ltermlib... no
+  # configure: error: No curses library functions found
+  # configure: error: /bin/sh '/var/tmp/paludis/dev-lang-erlang-16/work/otp_src_R16B/erts/configure' failed for erts
+  #
+  # Thanks to https://bugs.gentoo.org/475800#c5
   patch erts/configure $PLAN_CONTEXT/patches/000-tinfo.patch
 }
 
