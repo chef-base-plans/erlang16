@@ -10,7 +10,7 @@ pkg_source=http://www.erlang.org/download/otp_src_${pkg_version}.tar.gz
 pkg_filename=otp_src_${pkg_version}.tar.gz
 pkg_shasum=17ce53459bc5ceb34fc2da412e15ac8c23835a15fbd84e62c8d1852704747ee7
 pkg_deps=(core/glibc core/zlib core/ncurses core/openssl core/sed)
-pkg_build_deps=(core/coreutils core/gcc core/make core/openssl core/perl core/m4)
+pkg_build_deps=(core/coreutils core/gcc core/make core/openssl core/perl core/m4 core/patch)
 pkg_bin_dirs=(bin)
 pkg_include_dirs=(include)
 pkg_lib_dirs=(lib)
@@ -26,6 +26,18 @@ do_prepare() {
     ln -sv "$(pkg_path_for coreutils)/bin/rm" /bin/rm
     _clean_rm=true
   fi
+
+  # This fixes:
+  #
+  # checking for tgetent in -lncurses... no
+  # checking for tgetent in -lcurses... no
+  # checking for tgetent in -ltermcap... no
+  # checking for tgetent in -ltermlib... no
+  # configure: error: No curses library functions found
+  # configure: error: /bin/sh '/var/tmp/paludis/dev-lang-erlang-16/work/otp_src_R16B/erts/configure' failed for erts
+  #
+  # Thanks to https://bugs.gentoo.org/475800#c5
+  patch erts/configure $PLAN_CONTEXT/patches/000-tinfo.patch
 }
 
 do_build() {
