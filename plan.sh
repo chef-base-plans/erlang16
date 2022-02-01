@@ -47,7 +47,7 @@ do_build() {
               --enable-kernel-poll \
               --enable-dynamic-ssl-lib \
               --enable-shared-zlib \
-              --enable-hipe \
+              --disable-hipe \
               --with-ssl="$(pkg_path_for openssl)/lib" \
               --with-ssl-include="$(pkg_path_for openssl)/include" \
               --without-javac
